@@ -1,0 +1,5 @@
+[
+  "tests/integration_tests/test_api.py::test_api_response",
+  "tests/system_tests/test_web_login.py::test_google_search",
+  "tests/unit_tests/test_sample.py::test_addition"
+]

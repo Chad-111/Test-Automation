@@ -1,1 +1,4 @@
-{}
+{
+  "tests/integration_tests/test_api.py": true,
+  "tests/system_tests/test_web_login.py": true
+}

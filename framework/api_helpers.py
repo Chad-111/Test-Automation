@@ -1,25 +1,14 @@
 import requests
 
-def get_request(url, headers=None):
-    """Sends a GET request to the specified URL."""
+def get_dog_facts(limit=12):
+    """Fetch a list of dog facts from the Dog Facts API."""
+    url = f"https://dogapi.dog/api/v2/facts?limit={limit}"
+    headers = {"accept": "application/json"}
+    
     response = requests.get(url, headers=headers)
-    response.raise_for_status()  # Raise an error for bad status codes (4xx, 5xx)
-    return response.json()  # Return the response as JSON
-
-def post_request(url, data, headers=None):
-    """Sends a POST request to the specified URL with the provided data."""
-    response = requests.post(url, json=data, headers=headers)
-    response.raise_for_status()
-    return response.json()
-
-def put_request(url, data, headers=None):
-    """Sends a PUT request to update data at the specified URL."""
-    response = requests.put(url, json=data, headers=headers)
-    response.raise_for_status()
-    return response.json()
-
-def delete_request(url, headers=None):
-    """Sends a DELETE request to the specified URL."""
-    response = requests.delete(url, headers=headers)
-    response.raise_for_status()
-    return response.status_code
+    
+    # Check if the response is successful
+    if response.status_code == 200:
+        return response.json()  # Return the response as JSON
+    else:
+        response.raise_for_status()  # Raise an error for bad status codes

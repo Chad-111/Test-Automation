@@ -1,6 +1,7 @@
-import requests
+from framework.api_helpers import get_request, post_request
 
-def test_api_response():
-    url = "https://jsonplaceholder.typicode.com/posts"
-    response = requests.get(url)
-    assert response.status_code == 200
+def test_get_user_data():
+    url = "https://api.example.com/users/1"
+    user_data = get_request(url)
+    assert user_data["id"] == 1
+    assert user_data["name"] == "John Doe"

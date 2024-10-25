@@ -1,4 +1,4 @@
-name: Test Automation CI
+name: CI/CD Pipeline
 
 on:
   push:
@@ -9,21 +9,38 @@ on:
       - main
 
 jobs:
-  test:
-    runs-on: ubuntu-latest  # You can choose other OS environments like windows-latest or macos-latest
-    steps:
-    - uses: actions/checkout@v2  # Step 1: Checkout the code
+  build:
+    runs-on: ubuntu-latest
 
-    - name: Set up Python 3.9
-      uses: actions/setup-python@v2  # Step 2: Set up Python
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
       with:
         python-version: '3.9'
 
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r requirements.txt  # Step 3: Install dependencies from requirements.txt
+        pip install -r requirements.txt
 
     - name: Run tests
-      run: |
-        pytest  # Step 4: Run your tests
+      run: pytest
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Log in to Docker Hub
+      run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+    - name: Build Docker image
+      run: docker build -t my-docker-username/my-app:latest .
+
+    - name: Push Docker image to Docker Hub
+      run: docker push my-docker-username/my-app:latest

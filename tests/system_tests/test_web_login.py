@@ -18,3 +18,5 @@ def test_google_search():
     # Assert that "Test Automation" is in the page title
     assert "Test Automation" in driver.title
     driver.quit()
+
+# test add

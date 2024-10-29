@@ -2,7 +2,7 @@ import framework.browser_helpers as browser_helpers
 from selenium.webdriver.common.by import By
 
 def test_google_search():
-    driver = browser_helpers.start_browser(headless=True)
+    driver = start_browser(headless=True)
     driver.get("https://www.google.com")
 
     # Use helper to enter text into the search box and submit the form

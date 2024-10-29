@@ -2,15 +2,19 @@ import framework.browser_helpers as browser_helpers
 from selenium.webdriver.common.by import By
 
 def test_google_search():
-    driver = start_browser(headless=True)
-    driver.get("https://www.google.com")
-
-    # Use helper to enter text into the search box and submit the form
-    browser_helpers.enter_text(driver, By.NAME, "q", "Test Automation")
+    # Start the browser in headless mode
+    driver = browser_helpers.start_browser(headless=True)
     
-    # Use updated click_element with explicit wait for the search button
+    # Open Google
+    driver.get("https://www.google.com")
+    
+    # Enter text in the search box and click the search button
+    browser_helpers.enter_text(driver, By.NAME, "q", "Test Automation")
     browser_helpers.click_element(driver, By.NAME, "btnK")
-
-    # Validate the result
+    
+    # Wait for the page to load and validate the title
+    browser_helpers.wait_for_title_contains(driver, "Test Automation", timeout=10)
+    
+    # Assert that "Test Automation" is in the page title
     assert "Test Automation" in driver.title
     driver.quit()

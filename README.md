@@ -14,14 +14,12 @@ A project to automate testing for software quality assurance, with a suite of te
 ## Installation
 
 1. Clone the repository:
-   ```
-   git clone https://github.com/yourusername/test-automation.git
-   ```
-2. Navigate to the project directory:
+   
+3. Navigate to the project directory:
    ```
    cd test-automation
    ```
-3. Install dependencies:
+4. Install dependencies:
    ```
    npm install
    ```
